@@ -28,3 +28,22 @@ multiple OCI environments you must change the `MINIO_PORT` and `MINIO_CONSOLE_PO
 - `MINIO_CONSOLE_PORT`
     - DESCRIPTION: The outside port that the Minio Console will be exposed at.
     - DEFAULT: 9090
+
+Do not forget to update `DEFAULT_FILE_STORAGE` so that the settings file will have the following
+content:
+```
+CONTENT_ORIGIN='http://localhost:80'
+S3_ENDPOINT_URL="http://pminio:9000"
+S3_ACCESS_KEY="pulpminioaccesskey"
+S3_SECRET_KEY="pulpminioinsecuresecretkey"
+PULP_AWS_ACCESS_KEY_ID=S3_ACCESS_KEY
+PULP_AWS_SECRET_ACCESS_KEY=S3_SECRET_KEY
+PULP_AWS_STORAGE_BUCKET_NAME="pulp"
+PULP_AWS_S3_SIGNATURE_VERSION="s3v4"
+PULP_AWS_S3_ADDRESSING_STYLE="path"
+PULP_AWS_S3_ENDPOINT_URL=S3_ENDPOINT_URL
+PULP_DEFAULT_FILE_STORAGE="storages.backends.s3boto3.S3Boto3Storage"
+
+MINIO_PORT="9000"
+MINIO_CONSOLE_PORT="9090"
+```
